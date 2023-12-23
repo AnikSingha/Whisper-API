@@ -1,2 +1,2 @@
 # Whisper-API
-A self-hostable http API for OPENAI's Whisper
+A self-hostable http API for OpenAI's Whisper
