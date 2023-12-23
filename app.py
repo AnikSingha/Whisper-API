@@ -24,7 +24,4 @@ def upload():
     
     return send_file(getOutputFolder()+ outName, as_attachment=False)
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
 #curl -X POST -H "Content-Type: multipart/form-data" -F "file=@C:\Users\aniks\Downloads\x.mp4" http://127.0.0.1:5000/upload
