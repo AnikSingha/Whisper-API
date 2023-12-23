@@ -1,10 +1,13 @@
-from flask import Flask, request
+from flask import Flask, request, send_file
 from werkzeug.utils import secure_filename
+from transcribe import createSRTFile
+import whisper
 import os
-
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.getcwd() + "/uploads"
+
+model = whisper.load_model("base")
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -13,9 +16,11 @@ def upload():
     
     file = request.files['file']
     filename = secure_filename(file.filename)
-    print(filename)
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    return str(type(file))
+
+    createSRTFile(os.getcwd()+"/uploads/"+filename, model)
+
+    return send_file(os.getcwd()+"\\output.srt", as_attachment=False)
 
 if __name__ == '__main__':
     app.run()

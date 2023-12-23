@@ -1,10 +1,9 @@
 import whisper
 import pysrt
 
-model = whisper.load_model("base")
 
 # call whisper AI to transcribe file
-def transcribe(file_name):
+def transcribe(file_name, model):
     result = model.transcribe(file_name, fp16=False)
     return result # dictionary with 3 keys: text, segments, language
 
@@ -27,7 +26,7 @@ def buildSRT(result):
 
     return subs
 
-def createSRTFile(file_name, outName = "output.srt"):
-    result = transcribe(file_name)
+def createSRTFile(file_name, model, outName = "output.srt",):
+    result = transcribe(file_name, model)
     subs = buildSRT(result)
     subs.save(outName)
