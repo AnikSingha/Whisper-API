@@ -1,6 +1,6 @@
 import whisper
 import pysrt
-import os
+import scripts.utils
 
 
 # call whisper AI to transcribe file
@@ -30,4 +30,4 @@ def buildSRT(result):
 def createSRTFile(file_name, model, outName = "output.srt",):
     result = transcribe(file_name, model)
     subs = buildSRT(result)
-    subs.save(os.getcwd() + "/outputs/" + outName)
+    subs.save(scripts.utils.getOutputFolder() + outName)
