@@ -9,6 +9,10 @@ app.config['UPLOAD_FOLDER'] = getUploadFolder()
 
 model = whisper.load_model("base")
 
+@app.route('/')
+def home():
+    return "<h1>Hello Whisper</h1>"
+
 @app.route('/upload', methods=['POST'])
 def upload():
     if 'file' not in request.files:
@@ -25,6 +29,6 @@ def upload():
     return send_file(getOutputFolder()+ outName, as_attachment=False)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=3000)
 
-#curl -X POST -H "Content-Type: multipart/form-data" -F "file=@C:\Users\aniks\Downloads\x.mp4" http://127.0.0.1:5000/upload
+#curl -X POST -H "Content-Type: multipart/form-data" -F "file=@C:\Users\aniks\Downloads\x.mp4" https://whisper-api-three.vercel.app/upload
