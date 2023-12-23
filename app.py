@@ -20,7 +20,7 @@ def upload():
 
     createSRTFile(os.getcwd()+"/uploads/"+filename, model)
 
-    return send_file(os.getcwd()+"\\output.srt", as_attachment=False)
+    return send_file(os.getcwd()+"/outputs/output.srt", as_attachment=False)
 
 if __name__ == '__main__':
     app.run()
