@@ -4,6 +4,8 @@
   "functions": {
     "api/app.py": {
       "runtime": "@vercel/python",
+      "memory": 512,
+      "maxDuration": 60,
       "includeFiles": ["app.py", "requirements.txt"]
     }
   },
