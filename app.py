@@ -28,7 +28,4 @@ def upload():
     
     return send_file(getOutputFolder()+ outName, as_attachment=False)
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000)
-
 #curl -X POST -H "Content-Type: multipart/form-data" -F "file=@C:\Users\aniks\Downloads\x.mp4" https://whisper-api-three.vercel.app/upload
