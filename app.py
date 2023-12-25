@@ -1,7 +1,7 @@
 from flask import Flask, request, send_file
 from werkzeug.utils import secure_filename
 from scripts.transcribe import createSRTFile
-from scripts.utils import getUploadFolder, getOutputFolder
+from scripts.utils import getUploadFolder, getOutputFolder, cleanFolders
 import whisper
 
 app = Flask(__name__)
@@ -11,7 +11,7 @@ model = whisper.load_model("base")
 
 @app.route('/')
 def home():
-    return "<h1>Hello Whisper</h1>"
+    return "<h1>Hello Whisper</h1>", 200
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -26,6 +26,12 @@ def upload():
 
     createSRTFile(getUploadFolder()+filename, model, outName)
     
-    return send_file(getOutputFolder()+ outName, as_attachment=False)
+    return send_file(getOutputFolder()+ outName, as_attachment=False), 200
 
-#curl -X POST -H "Content-Type: multipart/form-data" -F "file=@C:\Users\aniks\Downloads\x.mp4" https://whisper-api-three.vercel.app/upload
+@app.route('/delete', methods=['DELETE', 'GET'])
+def delete():
+    cleanFolders()
+    return "200", 200
+
+
+#curl -X POST -H "Content-Type: multipart/form-data" -F "file=@C:\Users\aniks\Downloads\x.mp4" http://127.0.0.1:5000
