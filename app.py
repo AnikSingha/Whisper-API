@@ -1,10 +1,12 @@
 from flask import Flask, request, send_file
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from scripts.transcribe import createSRTFile
 from scripts.utils import getUploadFolder, getOutputFolder, cleanFolders
 import whisper
 
 app = Flask(__name__)
+CORS(app)
 model = whisper.load_model("base")
 
 @app.route('/')
